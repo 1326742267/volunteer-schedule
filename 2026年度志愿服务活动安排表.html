@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>2026 年度志愿服务活动安排表（全年）</title>
+<style>
+  /* ===== 全局基础样式 ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+                 "Helvetica Neue", Arial, "Hiragino Sans GB", sans-serif;
+    background: linear-gradient(135deg, #f5f7fb 0%, #e8eef9 100%);
+    color: #1f2329;
+    line-height: 1.7;
+    padding: 32px 20px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .doc-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(31, 78, 200, 0.10);
+    padding: 56px 60px;
+    overflow: hidden;
+  }
+
+  /* ===== 文档标题区 ===== */
+  .doc-header {
+    border-bottom: 3px solid #3370ff;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .doc-header::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: #00d6b9;
+  }
+
+  .doc-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1f2329;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  .doc-subtitle {
+    font-size: 14px;
+    color: #646a73;
+    font-weight: 400;
+  }
+
+  .doc-subtitle .badge {
+    display: inline-block;
+    background: #e8f1ff;
+    color: #3370ff;
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-weight: 500;
+  }
+
+  /* ===== 数据概览卡片 ===== */
+  .stats-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f1ff 100%);
+    border-radius: 10px;
+    padding: 20px 18px;
+    border-left: 4px solid #3370ff;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .stat-card:nth-child(2) { border-left-color: #00b851; }
+  .stat-card:nth-child(3) { border-left-color: #ff8800; }
+  .stat-card:nth-child(4) { border-left-color: #9b59b6; }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  }
+
+  .stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2329;
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: #646a73;
+    margin-top: 4px;
+  }
+
+  /* ===== 月度快捷导航 ===== */
+  .month-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+    padding: 14px;
+    background: #f7f8fa;
+    border-radius: 8px;
+  }
+
+  .month-nav a {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #3370ff;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid #e5e6eb;
+    transition: all .2s ease;
+  }
+
+  .month-nav a:hover {
+    background: #3370ff;
+    color: #ffffff;
+    border-color: #3370ff;
+  }
+
+  /* ===== 表格样式 ===== */
+  table.volunteer-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 24px 0;
+    font-size: 14px;
+    table-layout: fixed;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #e5e6eb;
+  }
+
+  /* 表头 */
+  table.volunteer-table thead th {
+    background: linear-gradient(135deg, #3370ff 0%, #1f5ce0 100%);
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 16px 18px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border: none;
+  }
+
+  table.volunteer-table thead th:first-child {
+    width: 9%;
+    text-align: center;
+  }
+  table.volunteer-table thead th:nth-child(2) {
+    width: 13%;
+    text-align: center;
+  }
+  table.volunteer-table thead th:nth-child(3) {
+    width: 22%;
+  }
+  table.volunteer-table thead th:last-child {
+    width: 56%;
+  }
+
+  /* 单元格 */
+  table.volunteer-table tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #eef0f3;
+    color: #1f2329;
+    vertical-align: middle;
+    word-wrap: break-word;
+  }
+
+  /* 月份单元格 */
+  table.volunteer-table td.month-cell {
+    text-align: center;
+    font-weight: 700;
+    font-size: 17px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #3370ff 0%, #1f5ce0 100%);
+    border-right: 3px solid #00d6b9;
+    vertical-align: middle;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  /* 月份首行 - 圆角左上角 */
+  table.volunteer-table tr.month-group-first td.month-cell {
+    border-top: 1px solid #3370ff;
+  }
+
+  /* 月份末行 */
+  table.volunteer-table tr.month-group-last td {
+    border-bottom: 2px solid #3370ff;
+  }
+
+  /* 日期居中 */
+  table.volunteer-table td.date-cell {
+    text-align: center;
+    color: #4e5969;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* 主题加粗 */
+  table.volunteer-table td.theme-cell {
+    font-weight: 600;
+    color: #1f2329;
+  }
+
+  /* 主题前加圆点 */
+  table.volunteer-table td.theme-cell::before {
+    content: "▸ ";
+    color: #3370ff;
+    margin-right: 2px;
+  }
+
+  /* 活动内容 */
+  table.volunteer-table td.activity-cell {
+    color: #4e5969;
+  }
+
+  /* ===== 交替行背景色 ===== */
+  table.volunteer-table tbody tr:nth-child(odd) td:not(.month-cell) {
+    background: #ffffff;
+  }
+  table.volunteer-table tbody tr:nth-child(even) td:not(.month-cell) {
+    background: #f7f9fc;
+  }
+
+  /* 月份内最后一行 - 圆角处理 */
+  table.volunteer-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 0;
+  }
+
+  /* 鼠标悬停效果 */
+  table.volunteer-table tbody tr:hover td:not(.month-cell) {
+    background: #fff7e6 !important;
+    transition: background 0.2s ease;
+  }
+
+  table.volunteer-table tbody tr:hover td.activity-cell {
+    color: #3370ff;
+  }
+
+  /* ===== 文档底部说明 ===== */
+  .doc-footer {
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: #f7f8fa;
+    border-radius: 10px;
+    border-left: 4px solid #00d6b9;
+    font-size: 13px;
+    color: #4e5969;
+  }
+
+  .doc-footer .label {
+    color: #3370ff;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  .doc-footer p {
+    margin: 8px 0;
+    line-height: 1.8;
+  }
+
+  /* ===== 配色说明区 ===== */
+  .legend {
+    display: flex;
+    gap: 18px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    color: #646a73;
+  }
+  .legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    margin-right: 6px;
+    border: 1px solid #e5e6eb;
+  }
+
+  /* ===== 打印样式 ===== */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .doc-container { box-shadow: none; padding: 20px; max-width: 100%; }
+    .month-nav { display: none; }
+    table.volunteer-table { font-size: 12px; }
+    table.volunteer-table thead th { background: #3370ff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .stat-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 980px) {
+    .doc-container { padding: 32px 24px; }
+    .stats-overview { grid-template-columns: repeat(2, 1fr); }
+    .doc-title { font-size: 24px; }
+  }
+  @media (max-width: 600px) {
+    .doc-container { padding: 20px 12px; }
+    table.volunteer-table { font-size: 12px; }
+    table.volunteer-table thead th,
+    table.volunteer-table tbody td { padding: 10px 8px; }
+    .stats-overview { grid-template-columns: 1fr; }
+    .doc-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="doc-container">
+
+    <!-- 文档标题 -->
+    <div class="doc-header">
+      <h1 class="doc-title">2026 年度志愿服务活动安排表</h1>
+      <p class="doc-subtitle">
+        <span class="badge">全年</span>
+        依据重要节日与纪念日，建议每月组织对应主题的志愿服务活动
+      </p>
+    </div>
+
+    <!-- 数据概览 -->
+    <div class="stats-overview">
+      <div class="stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">覆盖月份</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">58</div>
+        <div class="stat-label">活动主题</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">22</div>
+        <div class="stat-label">传统节日</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">36</div>
+        <div class="stat-label">主题纪念日</div>
+      </div>
+    </div>
+
+    <!-- 月度快捷导航 -->
+    <nav class="month-nav" aria-label="月份导航">
+      <a href="#m1">1月</a>
+      <a href="#m2">2月</a>
+      <a href="#m3">3月</a>
+      <a href="#m4">4月</a>
+      <a href="#m5">5月</a>
+      <a href="#m6">6月</a>
+      <a href="#m7">7月</a>
+      <a href="#m8">8月</a>
+      <a href="#m9">9月</a>
+      <a href="#m10">10月</a>
+      <a href="#m11">11月</a>
+      <a href="#m12">12月</a>
+    </nav>
+
+    <!-- 主表格 -->
+    <table class="volunteer-table">
+      <colgroup>
+        <col style="width:9%">
+        <col style="width:13%">
+        <col style="width:22%">
+        <col style="width:56%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>月份</th>
+          <th>日期</th>
+          <th>节日 / 主题</th>
+          <th>建议开展的志愿服务活动</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- 1月 -->
+        <tr id="m1" class="month-group-first">
+          <td class="month-cell" rowspan="5">1<br>月</td>
+          <td class="date-cell">1月1日</td>
+          <td class="theme-cell">元旦</td>
+          <td class="activity-cell">社区迎新、困难家庭暖心慰问</td>
+        </tr>
+        <tr>
+          <td class="date-cell">1月10日</td>
+          <td class="theme-cell">中国人民警察节</td>
+          <td class="activity-cell">致敬民警、物资派送、秩序维护</td>
+        </tr>
+        <tr>
+          <td class="date-cell">1月17日</td>
+          <td class="theme-cell">春节</td>
+          <td class="activity-cell">文化惠民、平安守护、应急保障</td>
+        </tr>
+        <tr>
+          <td class="date-cell">1月20日</td>
+          <td class="theme-cell">国家急救日</td>
+          <td class="activity-cell">普及急救知识、应急演练</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">1月24日</td>
+          <td class="theme-cell">国际教育日</td>
+          <td class="activity-cell">助学支教、图书捐赠、课业辅导</td>
+        </tr>
+
+        <!-- 2月 -->
+        <tr id="m2" class="month-group-first">
+          <td class="month-cell" rowspan="3">2<br>月</td>
+          <td class="date-cell">2月2日</td>
+          <td class="theme-cell">世界湿地日</td>
+          <td class="activity-cell">环保宣传、湿地净滩、生态守护</td>
+        </tr>
+        <tr>
+          <td class="date-cell">2月4日</td>
+          <td class="theme-cell">世界抗癌日</td>
+          <td class="activity-cell">健康科普、病友心理关怀与帮扶</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">2月10日</td>
+          <td class="theme-cell">国际气象节</td>
+          <td class="activity-cell">普及气象知识、防灾减灾宣传</td>
+        </tr>
+
+        <!-- 3月 -->
+        <tr id="m3" class="month-group-first">
+          <td class="month-cell" rowspan="9">3<br>月</td>
+          <td class="date-cell">3月3日</td>
+          <td class="theme-cell">元宵节</td>
+          <td class="activity-cell">社区灯会、特殊群体关爱</td>
+        </tr>
+        <tr>
+          <td class="date-cell">3月5日</td>
+          <td class="theme-cell">学雷锋纪念日</td>
+          <td class="activity-cell">社区服务、敬老助残、文明实践</td>
+        </tr>
+        <tr>
+          <td class="date-cell">3月8日</td>
+          <td class="theme-cell">妇女节</td>
+          <td class="activity-cell">女性健康关注、权益宣传、巾帼服务</td>
+        </tr>
+        <tr>
+          <td class="date-cell">3月12日</td>
+          <td class="theme-cell">植树节</td>
+          <td class="activity-cell">植树护绿、绿化养护、环保宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">3月17日</td>
+          <td class="theme-cell">国际社会工作日</td>
+          <td class="activity-cell">宣传社工理念、专业帮扶、社区关爱</td>
+        </tr>
+        <tr>
+          <td class="date-cell">3月20日</td>
+          <td class="theme-cell">龙抬头</td>
+          <td class="activity-cell">免费理发、爱心义剪</td>
+        </tr>
+        <tr>
+          <td class="date-cell">3月21日</td>
+          <td class="theme-cell">世界森林日 / 睡眠日</td>
+          <td class="activity-cell">护林宣传、睡眠健康科普</td>
+        </tr>
+        <tr>
+          <td class="date-cell">3月22日</td>
+          <td class="theme-cell">世界水日</td>
+          <td class="activity-cell">节水宣传、河道清理</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">3月24日</td>
+          <td class="theme-cell">世界防治结核病日</td>
+          <td class="activity-cell">健康宣讲、筛查引导、防疫科普</td>
+        </tr>
+
+        <!-- 4月 -->
+        <tr id="m4" class="month-group-first">
+          <td class="month-cell" rowspan="7">4<br>月</td>
+          <td class="date-cell">4月2日</td>
+          <td class="theme-cell">世界自闭症关注日</td>
+          <td class="activity-cell">关爱自闭症儿童、融合活动、科普宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">4月5日</td>
+          <td class="theme-cell">清明节</td>
+          <td class="activity-cell">文明祭扫、缅怀英烈、防火安全守护</td>
+        </tr>
+        <tr>
+          <td class="date-cell">4月7日</td>
+          <td class="theme-cell">世界卫生日</td>
+          <td class="activity-cell">健康义诊、卫生宣传、环境清洁</td>
+        </tr>
+        <tr>
+          <td class="date-cell">4月19日</td>
+          <td class="theme-cell">上巳节</td>
+          <td class="activity-cell">传统民俗体验、便民服务</td>
+        </tr>
+        <tr>
+          <td class="date-cell">4月22日</td>
+          <td class="theme-cell">世界地球日</td>
+          <td class="activity-cell">垃圾分类倡导、环保行动、低碳宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">4月23日</td>
+          <td class="theme-cell">世界读书日</td>
+          <td class="activity-cell">图书捐赠、阅读推广、乡村助学</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">4月28日</td>
+          <td class="theme-cell">世界工作安全日</td>
+          <td class="activity-cell">安全生产知识宣传、职业健康服务</td>
+        </tr>
+
+        <!-- 5月 -->
+        <tr id="m5" class="month-group-first">
+          <td class="month-cell" rowspan="8">5<br>月</td>
+          <td class="date-cell">5月1日</td>
+          <td class="theme-cell">劳动节</td>
+          <td class="activity-cell">致敬劳动者、便民服务、秩序维护</td>
+        </tr>
+        <tr>
+          <td class="date-cell">5月4日</td>
+          <td class="theme-cell">青年节</td>
+          <td class="activity-cell">青年文明实践、红色主题活动</td>
+        </tr>
+        <tr>
+          <td class="date-cell">5月8日</td>
+          <td class="theme-cell">世界红十字日</td>
+          <td class="activity-cell">应急救护普及、无偿献血宣传、人道救助</td>
+        </tr>
+        <tr>
+          <td class="date-cell">5月10日</td>
+          <td class="theme-cell">母亲节</td>
+          <td class="activity-cell">感恩慰问、亲子活动、女性健康关怀</td>
+        </tr>
+        <tr>
+          <td class="date-cell">5月12日</td>
+          <td class="theme-cell">国际护士节</td>
+          <td class="activity-cell">致敬医护、爱心慰问、健康服务</td>
+        </tr>
+        <tr>
+          <td class="date-cell">5月15日</td>
+          <td class="theme-cell">国际家庭日</td>
+          <td class="activity-cell">家风宣传、家庭关爱、亲子志愿活动</td>
+        </tr>
+        <tr>
+          <td class="date-cell">5月17日</td>
+          <td class="theme-cell">全国助残日</td>
+          <td class="activity-cell">关爱残障人士、无障碍设施检查、技能支持</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">5月31日</td>
+          <td class="theme-cell">世界无烟日</td>
+          <td class="activity-cell">控烟宣传、倡导无烟生活</td>
+        </tr>
+
+        <!-- 6月 -->
+        <tr id="m6" class="month-group-first">
+          <td class="month-cell" rowspan="9">6<br>月</td>
+          <td class="date-cell">6月1日</td>
+          <td class="theme-cell">儿童节</td>
+          <td class="activity-cell">关爱少年儿童、助学帮扶、校园安全宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">6月5日</td>
+          <td class="theme-cell">世界环境日</td>
+          <td class="activity-cell">环保清洁、低碳宣传、生态守护</td>
+        </tr>
+        <tr>
+          <td class="date-cell">6月6日</td>
+          <td class="theme-cell">全国爱眼日</td>
+          <td class="activity-cell">护眼知识普及、视力筛查</td>
+        </tr>
+        <tr>
+          <td class="date-cell">6月7日</td>
+          <td class="theme-cell">高考</td>
+          <td class="activity-cell">高考志愿服务、考生家长暖心保障</td>
+        </tr>
+        <tr>
+          <td class="date-cell">6月8日</td>
+          <td class="theme-cell">世界海洋日</td>
+          <td class="activity-cell">净滩行动、海洋环保宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">6月14日</td>
+          <td class="theme-cell">世界献血者日</td>
+          <td class="activity-cell">无偿献血宣传、献血志愿服务</td>
+        </tr>
+        <tr>
+          <td class="date-cell">6月19日</td>
+          <td class="theme-cell">端午节</td>
+          <td class="activity-cell">传承传统文化、便民暖心、关爱慰问</td>
+        </tr>
+        <tr>
+          <td class="date-cell">6月21日</td>
+          <td class="theme-cell">父亲节</td>
+          <td class="activity-cell">暖心关爱、父亲节感恩主题活动</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">6月26日</td>
+          <td class="theme-cell">国际禁毒日</td>
+          <td class="activity-cell">禁毒宣传、普法教育</td>
+        </tr>
+
+        <!-- 7月 -->
+        <tr id="m7" class="month-group-first">
+          <td class="month-cell" rowspan="2">7<br>月</td>
+          <td class="date-cell">7月1日</td>
+          <td class="theme-cell">建党节</td>
+          <td class="activity-cell">红色宣讲、敬老助老、便民服务</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">7月11日</td>
+          <td class="theme-cell">世界人口日</td>
+          <td class="activity-cell">计生健康知识普及、优生优育科普</td>
+        </tr>
+
+        <!-- 8月 -->
+        <tr id="m8" class="month-group-first">
+          <td class="month-cell" rowspan="4">8<br>月</td>
+          <td class="date-cell">8月1日</td>
+          <td class="theme-cell">建军节</td>
+          <td class="activity-cell">关爱退役军人、拥军优属</td>
+        </tr>
+        <tr>
+          <td class="date-cell">8月12日</td>
+          <td class="theme-cell">国际青年日</td>
+          <td class="activity-cell">青年志愿服务、文明实践行动</td>
+        </tr>
+        <tr>
+          <td class="date-cell">8月19日</td>
+          <td class="theme-cell">七夕节 / 医师节</td>
+          <td class="activity-cell">致敬医护、健康义诊</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">8月27日</td>
+          <td class="theme-cell">中元节</td>
+          <td class="activity-cell">文明祭扫、民俗文化宣传、消防安全守护</td>
+        </tr>
+
+        <!-- 9月 -->
+        <tr id="m9" class="month-group-first">
+          <td class="month-cell" rowspan="8">9<br>月</td>
+          <td class="date-cell">9月3日</td>
+          <td class="theme-cell">抗战胜利纪念日</td>
+          <td class="activity-cell">红色纪念活动、爱国主义宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">9月5日</td>
+          <td class="theme-cell">中华慈善日</td>
+          <td class="activity-cell">公益募捐、慈善理念与志愿精神宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">9月8日</td>
+          <td class="theme-cell">国际扫盲日</td>
+          <td class="activity-cell">助学支教、文化普及</td>
+        </tr>
+        <tr>
+          <td class="date-cell">9月10日</td>
+          <td class="theme-cell">教师节</td>
+          <td class="activity-cell">尊师重教、慰问教师、校园服务</td>
+        </tr>
+        <tr>
+          <td class="date-cell">9月20日</td>
+          <td class="theme-cell">全国爱牙日</td>
+          <td class="activity-cell">口腔健康义诊、儿童护牙知识普及</td>
+        </tr>
+        <tr>
+          <td class="date-cell">9月21日</td>
+          <td class="theme-cell">国际和平日</td>
+          <td class="activity-cell">反暴力理念宣传、和谐社区建设</td>
+        </tr>
+        <tr>
+          <td class="date-cell">9月22日</td>
+          <td class="theme-cell">国际聋人节</td>
+          <td class="activity-cell">关爱听障人士、手语宣传与帮扶</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">9月25日</td>
+          <td class="theme-cell">中秋节</td>
+          <td class="activity-cell">中秋慰问、传承传统文化、便民服务</td>
+        </tr>
+
+        <!-- 10月 -->
+        <tr id="m10" class="month-group-first">
+          <td class="month-cell" rowspan="9">10<br>月</td>
+          <td class="date-cell">10月1日</td>
+          <td class="theme-cell">国庆节</td>
+          <td class="activity-cell">秩序维护、文明劝导、爱国宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">10月2日</td>
+          <td class="theme-cell">国际非暴力日</td>
+          <td class="activity-cell">倡导非暴力理念、反暴力宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">10月4日</td>
+          <td class="theme-cell">世界动物日</td>
+          <td class="activity-cell">关爱流浪动物、动物保护宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">10月10日</td>
+          <td class="theme-cell">世界精神卫生日</td>
+          <td class="activity-cell">心理咨询、情绪关怀、科普宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">10月11日</td>
+          <td class="theme-cell">国际女童日</td>
+          <td class="activity-cell">关注女童权益、安全教育、志愿助学</td>
+        </tr>
+        <tr>
+          <td class="date-cell">10月15日</td>
+          <td class="theme-cell">国际盲人节</td>
+          <td class="activity-cell">关爱视障人士、无障碍倡导、陪护陪诊</td>
+        </tr>
+        <tr>
+          <td class="date-cell">10月16日</td>
+          <td class="theme-cell">世界粮食日</td>
+          <td class="activity-cell">光盘行动倡导、反食品浪费宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">10月17日</td>
+          <td class="theme-cell">消除贫困日</td>
+          <td class="activity-cell">扶贫济困、物资捐赠、贫困地区帮扶</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">10月18日</td>
+          <td class="theme-cell">重阳节</td>
+          <td class="activity-cell">敬老爱老、便民志愿、文明实践</td>
+        </tr>
+
+        <!-- 11月 -->
+        <tr id="m11" class="month-group-first">
+          <td class="month-cell" rowspan="5">11<br>月</td>
+          <td class="date-cell">11月8日</td>
+          <td class="theme-cell">记者节</td>
+          <td class="activity-cell">致敬媒体工作者、文明宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">11月9日</td>
+          <td class="theme-cell">消防日 / 寒衣节</td>
+          <td class="activity-cell">关爱特殊家庭、移风易俗、消防宣传</td>
+        </tr>
+        <tr>
+          <td class="date-cell">11月16日</td>
+          <td class="theme-cell">国际宽容日</td>
+          <td class="activity-cell">多元文化包容倡导、反歧视公益</td>
+        </tr>
+        <tr>
+          <td class="date-cell">11月17日</td>
+          <td class="theme-cell">国际大学生节</td>
+          <td class="activity-cell">关注大学生发展、知识下乡</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">11月20日</td>
+          <td class="theme-cell">世界儿童日</td>
+          <td class="activity-cell">关爱困境儿童、儿童权益保护</td>
+        </tr>
+
+        <!-- 12月 -->
+        <tr id="m12" class="month-group-first">
+          <td class="month-cell" rowspan="5">12<br>月</td>
+          <td class="date-cell">12月1日</td>
+          <td class="theme-cell">世界艾滋病日</td>
+          <td class="activity-cell">防艾宣传、反歧视倡导、爱心关怀</td>
+        </tr>
+        <tr>
+          <td class="date-cell">12月3日</td>
+          <td class="theme-cell">世界残疾人日</td>
+          <td class="activity-cell">助残服务、无障碍倡导、康复陪伴</td>
+        </tr>
+        <tr>
+          <td class="date-cell">12月5日</td>
+          <td class="theme-cell">国际志愿者日</td>
+          <td class="activity-cell">弘扬志愿精神、促进公众参与</td>
+        </tr>
+        <tr>
+          <td class="date-cell">12月10日</td>
+          <td class="theme-cell">世界人权日</td>
+          <td class="activity-cell">普法宣传、弱势群体帮扶、反歧视倡导</td>
+        </tr>
+        <tr class="month-group-last">
+          <td class="date-cell">12月22日</td>
+          <td class="theme-cell">冬至</td>
+          <td class="activity-cell">情暖冬日、为户外工作者送温暖</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <!-- 文档底部说明 -->
+    <div class="doc-footer">
+      <p><span class="label">使用说明：</span>本表按月份整理全年 12 个月的重要节日与纪念日，并对应给出志愿服务活动建议，可作为年度志愿服务计划的参考依据。</p>
+      <p><span class="label">样式说明：</span>月份单元格使用渐变蓝色（#3370ff → #1f5ce0）+ 青色右边线（#00d6b9）实现视觉分组；月份首末行加粗分隔线；表头采用渐变蓝底白字；数据行采用交替背景色（#fff / #f7f9fc）；悬停时高亮浅橙色，文字变蓝。</p>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:linear-gradient(135deg,#3370ff,#1f5ce0)"></span>月份标记色</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#00d6b9"></span>月份分隔线</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#ffffff"></span>奇数行</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#f7f9fc"></span>偶数行</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#fff7e6;border-color:#ff8800"></span>悬停高亮</span>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
